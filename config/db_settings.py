@@ -1,4 +1,5 @@
 from ctypes import Union
+from multiprocessing import connection
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -14,10 +15,10 @@ class DatabaseConnection(object):
         host: str = "127.0.0.1",
         port: int = 3306
     ) -> None:
-        self.HOST = host
-        self.DATABASE = database
-        self.USERNAME = user
-        self.PASSWORD = password
+        self.HOST = "35.193.161.48"
+        self.DATABASE = "cools"
+        self.USERNAME = "root"
+        self.PASSWORD = "qw246850"
         self.PORT = port
         self.engine = self.generate_engine()
 
@@ -35,10 +36,14 @@ class DatabaseConnection(object):
     def base_instance(self):
         return declarative_base(self.engine)
 
-    def generate_cursor(self):
-        self.engine.execute()
+    def get_connection(self):
+        return self.engine.connect()
+
+    def fetch_data(self):
+        connection = self.get_connection()
+
 
 
 if __name__ == "__main__":
     from sqlalchemy.ext.declarative import declarative_base
-    Base = declarative_base(engine)
+    # Base = declarative_base(engine)

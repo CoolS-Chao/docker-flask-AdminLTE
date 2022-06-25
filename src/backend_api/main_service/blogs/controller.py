@@ -1,16 +1,20 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, render_template
 
 
 bg = Blueprint("blogs", __name__)
 
 
-@bg.route("/api/<version>/blogs")
-def operate_blogs():
+@bg.route("/blogs/<blog_id>", methods=["GET", "POST"])
+def operate_blogs(blog_id):
     if request.method == "GET":
-        pass
+        if not isinstance(blog_id, int):
+            
+        print(blog_id)
+        return blog_id
+        # return render_template("tem÷plates/blog_editor/")
     if request.method == "POST":
         pass
 
 
-@bg.route("/api/<version_string>/blogs/<blog_id>")
-def 
+# @bg.route("/blogs/<blog_id>")
+# def 

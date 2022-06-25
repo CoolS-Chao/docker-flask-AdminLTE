@@ -1,0 +1,2 @@
+-- select user, host from mysql.user;
+-- show variables like "character%";
