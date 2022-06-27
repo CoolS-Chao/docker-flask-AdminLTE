@@ -1,10 +1,14 @@
 from flask import Flask
-from src.backend_api.main_service.blogs.controller import bg
+from src.backend_api.users.controller import ul
 
 
 def create_app():
-    app = Flask(__name__)
-    app.register_blueprint(bg)
+    app = Flask(
+        __name__,
+        template_folder="src/templates",
+        static_folder="src/static",
+    )
+    app.register_blueprint(ul)
 
     return app
 
