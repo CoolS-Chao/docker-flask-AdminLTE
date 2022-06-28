@@ -15,4 +15,4 @@ class DevelopConfig(BasicConfig):
 
 
 class ProductionConfig(BasicConfig):
-    DEBUG = True
+    DEBUG = False
