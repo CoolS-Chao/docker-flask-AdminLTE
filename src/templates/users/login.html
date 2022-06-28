@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../static/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../../static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../static/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo" style="color: blue;">
+            <b>CoolS Platform</b>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your management</p>
+                <form action="">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Username" id="username" value="">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" id="password" value="">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <span id="password-tips"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="button" class="btn btn-info btn-block" onclick="loginIn()">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-info">
+                    I forgot my password
+                    </a>
+                    <a href="register.html" class="btn btn-block btn-info">
+                    Register a new membership
+                    </a>
+                </div>
+            <!-- /.social-auth-links -->
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+<!-- /.login-box -->
+<!-- jQuery -->
+<script src="../../static/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../static/dist/js/adminlte.min.js"></script>
+<script>
+    var username = document.getElementById("username");
+    var password = document.getElementById("password");
+    var payload = JSON.stringify(
+        {
+            "userName": username.value,
+            "passWord": password.value
+        }
+    )
+    // 验证用户名
+    function checkUsername() {
+        var reg_username = /^[a-zA-Z]{6,10}$/;
+        if (!reg_username.test(username.value)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    // 验证密码
+    function checkPassword() {
+        var reg_password = /^\w{6}$/;
+        if (!reg_password.test(password.value)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    // 焦点验证
+    username.onblur = function() {
+        checkUsername();
+    };
+    password.onblur = function() {
+        checkPassword();
+    }
+
+    // Ajax提交
+    function ajaxLogin(data) {
+        try {
+            xhr = new XMLHttpRequest();
+        } catch (e) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.open("POST", "/login", true);
+        xhr.setRequestHeader(
+            "content-type", "application/json;charset=UTF-8"
+        );
+        xhr.send(data);
+        xhr.onreadystatechange = function () {
+            if (xhr.status == 200) {
+                if (xhr.readyState == 4) {
+                    console.log("success");
+                }
+            }
+        }
+    };
+
+    // 点击 Sign In
+    function loginIn() {
+        var payload = JSON.stringify({
+            "userName": username.value,
+            "passWord": password.value
+        })
+        if (checkUsername() && checkPassword()) {
+            ajaxLogin(payload);
+        } else {
+            alert("Wrong name or password!");
+        }
+    };
+</script>
+</body>
+</html>
